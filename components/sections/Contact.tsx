@@ -10,7 +10,6 @@ import { contactInfo } from '@/lib/data';
 export function Contact() {
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
     message: '',
   });
   const [submitted, setSubmitted] = useState(false);
@@ -38,13 +37,29 @@ export function Contact() {
 
       if (response.ok) {
         setSubmitted(true);
-        setFormData({ name: '', email: '', message: '' });
+        setFormData({ name: '', message: '' });
 
         // Reset success message after 3 seconds
         setTimeout(() => setSubmitted(false), 3000);
       } else {
-        const data = await response.json();
-        setError(data.error || 'Failed to send message. Please try again.');
+        const contentType = response.headers.get('content-type') ?? '';
+        let message = `Failed to send message (${response.status}). Please try again.`;
+
+        if (contentType.includes('application/json')) {
+          const data = await response.json().catch(() => null);
+          message = data?.error || message;
+        } else {
+          const bodyText = await response.text().catch(() => '');
+
+          if (response.status === 405 || bodyText.includes('<html')) {
+            message =
+              'The contact backend is not available on this domain yet. Deploy the app to Vercel and point the domain there.';
+          } else if (bodyText.trim()) {
+            message = bodyText.trim();
+          }
+        }
+
+        setError(message);
       }
     } catch (error) {
       console.error('Error:', error);
@@ -182,23 +197,6 @@ export function Contact() {
 
                   {/* Email */}
                   <div>
-                    <label htmlFor="email" className="mb-2 block text-xs font-medium text-gray-900 sm:text-sm dark:text-white">
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="w-full rounded-lg border border-stone-200 bg-white px-4 py-2.5 text-center text-sm text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-stone-400 focus:outline-none dark:border-stone-500/30 dark:bg-stone-900/45 dark:text-stone-100 dark:placeholder-stone-300/50 dark:focus:ring-stone-400 sm:rounded-xl sm:text-base"
-                      placeholder="your@email.com"
-                    />
-                  </div>
-
-                  {/* Message */}
-                  <div>
                     <label htmlFor="message" className="mb-2 block text-xs font-medium text-gray-900 sm:text-sm dark:text-white">
                       Message
                     </label>
@@ -210,7 +208,7 @@ export function Contact() {
                       required
                       rows={5}
                       className="w-full resize-none rounded-lg border border-stone-200 bg-white px-4 py-2.5 text-center text-sm text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-stone-400 focus:outline-none dark:border-stone-500/30 dark:bg-stone-900/45 dark:text-stone-100 dark:placeholder-stone-300/50 dark:focus:ring-stone-400 sm:rounded-xl sm:text-base"
-                      placeholder="Your message..."
+                      placeholder="Your message... If you want a reply, include your email address here."
                     />
                   </div>
 

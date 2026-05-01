@@ -6,13 +6,21 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
 
+export async function GET() {
+  return NextResponse.json(
+    { error: 'Method not allowed' },
+    { status: 405 }
+  );
+}
+
 export async function POST(request: NextRequest) {
   let client: any = null;
   
   try {
-    const { name, email, message } = await request.json();
+    const { name, message } = await request.json();
+    const senderEmail = extractEmailAddress(message) ?? 'not-provided@local';
 
-    if (!name || !email || !message) {
+    if (!name || !message) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -22,12 +30,12 @@ export async function POST(request: NextRequest) {
     client = await pool.connect();
     const result = await client.query(
       'INSERT INTO "ContactMessage" (name, email, message, "createdAt") VALUES ($1, $2, $3, NOW()) RETURNING *',
-      [name, email, message]
+      [name, senderEmail, message]
     );
     client.release();
     client = null;
 
-    sendEmails(name, email, message).catch((err) => {
+    sendNotificationEmail(name, senderEmail, message).catch((err) => {
       console.error('Email error:', err);
     });
 
@@ -51,7 +59,12 @@ export async function POST(request: NextRequest) {
     }
   }
 }
-async function sendEmails(name: string, email: string, message: string) {
+function extractEmailAddress(message: string) {
+  const match = message.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i);
+  return match?.[0] ?? null;
+}
+
+async function sendNotificationEmail(name: string, senderEmail: string, message: string) {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -67,21 +80,9 @@ async function sendEmails(name: string, email: string, message: string) {
     html: `
       <h2>New Contact Form Submission</h2>
       <p><strong>From:</strong> ${name}</p>
-      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Detected email:</strong> ${senderEmail}</p>
       <p><strong>Message:</strong></p>
       <p>${message.replace(/\n/g, '<br>')}</p>
-    `,
-  });
-
-  await transporter.sendMail({
-    from: process.env.GMAIL_EMAIL,
-    to: email,
-    subject: 'We received your message!',
-    html: `
-      <h2>Thank you for reaching out!</h2>
-      <p>Hi ${name},</p>
-      <p>We've received your message and will get back to you soon.</p>
-      <p>Best regards,<br>Este</p>
     `,
   });
 }
