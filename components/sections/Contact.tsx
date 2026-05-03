@@ -7,9 +7,12 @@ import { Button } from '@/components/ui/Button';
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
 import { contactInfo } from '@/lib/data';
 
+const FORMSPREE_ID = 'mzdodvpy';
+
 export function Contact() {
   const [formData, setFormData] = useState({
     name: '',
+    email: '',
     message: '',
   });
   const [submitted, setSubmitted] = useState(false);
@@ -27,7 +30,7 @@ export function Contact() {
     setError(null);
 
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -37,29 +40,12 @@ export function Contact() {
 
       if (response.ok) {
         setSubmitted(true);
-        setFormData({ name: '', message: '' });
+        setFormData({ name: '', email: '', message: '' });
 
         // Reset success message after 3 seconds
         setTimeout(() => setSubmitted(false), 3000);
       } else {
-        const contentType = response.headers.get('content-type') ?? '';
-        let message = `Failed to send message (${response.status}). Please try again.`;
-
-        if (contentType.includes('application/json')) {
-          const data = await response.json().catch(() => null);
-          message = data?.error || message;
-        } else {
-          const bodyText = await response.text().catch(() => '');
-
-          if (response.status === 405 || bodyText.includes('<html')) {
-            message =
-              'The contact backend is not available on this domain yet. Deploy the app to Vercel and point the domain there.';
-          } else if (bodyText.trim()) {
-            message = bodyText.trim();
-          }
-        }
-
-        setError(message);
+        setError('Failed to send message. Please try again.');
       }
     } catch (error) {
       console.error('Error:', error);
@@ -166,19 +152,11 @@ export function Contact() {
                     Thank You!
                   </h3>
                   <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
-                    I&apos;ll get back to you as soon as possible.
+                    Will get back to you soon! Love from Este ^_^
                   </p>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4 text-center sm:space-y-6">
-                  {/* Error Message */}
-                  {error && (
-                    <div className="rounded-lg bg-red-50 p-4 text-red-700 dark:bg-red-900/20 dark:text-red-400 text-sm sm:text-base">
-                      {error}
-                    </div>
-                  )}
-
-                  {/* Name */}
                   <div>
                     <label htmlFor="name" className="mb-2 block text-xs font-medium text-gray-900 sm:text-sm dark:text-white">
                       Name
@@ -195,7 +173,6 @@ export function Contact() {
                     />
                   </div>
 
-                  {/* Email */}
                   <div>
                     <label htmlFor="message" className="mb-2 block text-xs font-medium text-gray-900 sm:text-sm dark:text-white">
                       Message
@@ -208,7 +185,7 @@ export function Contact() {
                       required
                       rows={5}
                       className="w-full resize-none rounded-lg border border-stone-200 bg-white px-4 py-2.5 text-center text-sm text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-stone-400 focus:outline-none dark:border-stone-500/30 dark:bg-stone-900/45 dark:text-stone-100 dark:placeholder-stone-300/50 dark:focus:ring-stone-400 sm:rounded-xl sm:text-base"
-                      placeholder="Your message... If you want a reply, include your email address here."
+                      placeholder="Your message... "
                     />
                   </div>
 
