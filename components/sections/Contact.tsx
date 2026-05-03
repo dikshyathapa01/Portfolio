@@ -239,13 +239,6 @@ export function Contact() {
                     {loading ? 'Sending...' : 'Send Message'}
                     <Send size={18} />
                   </Button>
-
-                  {/* Error Message */}
-                  {error && (
-                    <div className="mt-4 p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm dark:bg-red-900/20 dark:border-red-800 dark:text-red-400">
-                      {error}
-                    </div>
-                  )}
                 </form>
               )}
             </Card>
