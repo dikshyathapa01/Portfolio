@@ -12,7 +12,6 @@ const FORMSPREE_ID = 'mzdodvpy';
 export function Contact() {
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
     message: '',
   });
   const [submitted, setSubmitted] = useState(false);
@@ -35,12 +34,15 @@ export function Contact() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          email: 'dikshyatha4258@gmail.com',
+        }),
       });
 
       if (response.ok) {
         setSubmitted(true);
-        setFormData({ name: '', email: '', message: '' });
+        setFormData({ name: '', message: '' });
 
         // Reset success message after 3 seconds
         setTimeout(() => setSubmitted(false), 3000);
