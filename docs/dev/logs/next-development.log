@@ -1,0 +1,4 @@
+[00:10:38.100] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'C:\Users\Acer\hugo-theme-academic-cv\docs\dev\server\app\page\build-manifest.json'
+[00:10:41.116] Server  LOG     ○ Compiling /_error ...
+[00:11:05.219] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'C:\Users\Acer\hugo-theme-academic-cv\docs\dev\server\app\page\build-manifest.json'
+[00:11:19.427] Server  ERROR   ⨯ Error: ENOENT: no such file or directory, open 'C:\Users\Acer\hugo-theme-academic-cv\docs\dev\server\app\page\build-manifest.json'
