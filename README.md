@@ -170,12 +170,6 @@ npm run build
 
 Deploy the generated `out/` directory to GitHub Pages.
 
-### Vercel
-
-1. Push code to GitHub
-2. Import project in Vercel dashboard
-3. Automatic deployment on every push
-
 ### Other Platforms
 
 The built project can be deployed to:
