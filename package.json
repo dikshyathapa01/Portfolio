@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "serve out -l 3000",
-    "preview": "serve out -l 3000",
+    "start": "serve docs -l 3000",
+    "preview": "serve docs -l 3000",
     "lint": "eslint"
   },
   "dependencies": {
