@@ -28,26 +28,27 @@ export function Contact() {
     setError(null);
 
     try {
-      const response = await fetch('/api/contact', {
+      const form = new FormData();
+      form.append('name', formData.name);
+      form.append('email', formData.email);
+      form.append('message', formData.message);
+
+      const response = await fetch('https://formspree.io/f/mzdodvpy', {
         method: 'POST',
+        body: form,
         headers: {
-          'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
-        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
         setSubmitted(true);
         setFormData({ name: '', email: '', message: '' });
-
-        // Reset success message after 3 seconds
-        setTimeout(() => setSubmitted(false), 3000);
+        setTimeout(() => setSubmitted(false), 2000);
       } else {
-        const data = await response.json();
-        setError(data.error || 'Failed to send message. Please try again.');
+        setError('Failed to send message. Please try again.');
       }
     } catch (error) {
-      console.error('Error:', error);
       setError('Error sending message. Please try again.');
     } finally {
       setLoading(false);
