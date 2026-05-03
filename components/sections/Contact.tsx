@@ -52,7 +52,7 @@ export function Contact() {
           email: formData.email,
           message: formData.message,
           _replyto: contactInfo.email,
-          _subject: ' Message',
+          _subject: 'New Portfolio Contact Message',
         }),
       });
 
@@ -63,7 +63,9 @@ export function Contact() {
         // Reset success message after 3 seconds
         setTimeout(() => setSubmitted(false), 3000);
       } else {
-        setError('Failed to send message. Please try again.');
+        const errorText = await response.text();
+        console.error('Formspree error:', response.status, errorText);
+        setError(`Failed to send message (${response.status}). Please try again.`);
       }
     } catch (error) {
       console.error('Error:', error);
@@ -186,6 +188,7 @@ export function Contact() {
                       value={formData.name}
                       onChange={handleChange}
                       required
+                      autoComplete="name"
                       className="w-full rounded-lg border border-stone-200 bg-white px-4 py-2.5 text-center text-sm text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-stone-400 focus:outline-none dark:border-stone-500/30 dark:bg-stone-900/45 dark:text-stone-100 dark:placeholder-stone-300/50 dark:focus:ring-stone-400 sm:rounded-xl sm:text-base"
                       placeholder="Your name"
                     />
@@ -202,6 +205,7 @@ export function Contact() {
                       value={formData.email}
                       onChange={handleChange}
                       required
+                      autoComplete="email"
                       className="w-full rounded-lg border border-stone-200 bg-white px-4 py-2.5 text-center text-sm text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-stone-400 focus:outline-none dark:border-stone-500/30 dark:bg-stone-900/45 dark:text-stone-100 dark:placeholder-stone-300/50 dark:focus:ring-stone-400 sm:rounded-xl sm:text-base"
                       placeholder="Your email"
                     />
@@ -218,6 +222,7 @@ export function Contact() {
                       onChange={handleChange}
                       required
                       rows={5}
+                      autoComplete="off"
                       className="w-full resize-none rounded-lg border border-stone-200 bg-white px-4 py-2.5 text-center text-sm text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-stone-400 focus:outline-none dark:border-stone-500/30 dark:bg-stone-900/45 dark:text-stone-100 dark:placeholder-stone-300/50 dark:focus:ring-stone-400 sm:rounded-xl sm:text-base"
                       placeholder="Your message... "
                     />
