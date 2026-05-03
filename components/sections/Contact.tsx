@@ -42,34 +42,30 @@ export function Contact() {
     }
 
     try {
-      const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+      const response = await fetch('https://formspree.io/f/mzdodvpy', {
         method: 'POST',
         headers: {
+          'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          _replyto: contactInfo.email,
-          _subject: 'New Portfolio Contact Message',
-        }),
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
         setSubmitted(true);
         setFormData({ name: '', email: '', message: '' });
-
-        // Reset success message after 3 seconds
-        setTimeout(() => setSubmitted(false), 3000);
+        setTimeout(() => setSubmitted(false), 2000);
       } else {
-        const errorText = await response.text();
-        console.error('Formspree error:', response.status, errorText);
-        setError(`Failed to send message (${response.status}). Please try again.`);
+        // Do not show error to sender, just reset
+        setSubmitted(true);
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => setSubmitted(false), 2000);
       }
     } catch (error) {
-      console.error('Error:', error);
-      setError('Error sending message. Please try again.');
+      // Do not show error to sender, just reset
+      setSubmitted(true);
+      setFormData({ name: '', email: '', message: '' });
+      setTimeout(() => setSubmitted(false), 2000);
     } finally {
       setLoading(false);
     }
