@@ -12,6 +12,7 @@ const FORMSPREE_ID = 'mzdodvpy';
 export function Contact() {
   const [formData, setFormData] = useState({
     name: '',
+    email: '',
     message: '',
   });
   const [submitted, setSubmitted] = useState(false);
@@ -23,10 +24,22 @@ export function Contact() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+
+    // Validate email format
+    if (!validateEmail(formData.email)) {
+      setError('Please enter a valid email address (e.g., example@gmail.com)');
+      setLoading(false);
+      return;
+    }
 
     try {
       const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
@@ -35,14 +48,17 @@ export function Contact() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          ...formData,
-          email: 'dikshyatha4258@gmail.com',
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          _replyto: contactInfo.email,
+          _subject: ' Message',
         }),
       });
 
       if (response.ok) {
         setSubmitted(true);
-        setFormData({ name: '', message: '' });
+        setFormData({ name: '', email: '', message: '' });
 
         // Reset success message after 3 seconds
         setTimeout(() => setSubmitted(false), 3000);
@@ -176,6 +192,22 @@ export function Contact() {
                   </div>
 
                   <div>
+                    <label htmlFor="email" className="mb-2 block text-xs font-medium text-gray-900 sm:text-sm dark:text-white">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full rounded-lg border border-stone-200 bg-white px-4 py-2.5 text-center text-sm text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-stone-400 focus:outline-none dark:border-stone-500/30 dark:bg-stone-900/45 dark:text-stone-100 dark:placeholder-stone-300/50 dark:focus:ring-stone-400 sm:rounded-xl sm:text-base"
+                      placeholder="Your email"
+                    />
+                  </div>
+
+                  <div>
                     <label htmlFor="message" className="mb-2 block text-xs font-medium text-gray-900 sm:text-sm dark:text-white">
                       Message
                     </label>
@@ -202,6 +234,13 @@ export function Contact() {
                     {loading ? 'Sending...' : 'Send Message'}
                     <Send size={18} />
                   </Button>
+
+                  {/* Error Message */}
+                  {error && (
+                    <div className="mt-4 p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm dark:bg-red-900/20 dark:border-red-800 dark:text-red-400">
+                      {error}
+                    </div>
+                  )}
                 </form>
               )}
             </Card>
