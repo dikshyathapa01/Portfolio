@@ -36,24 +36,24 @@ export interface ContactInfo {
 
 export const skills: Skill[] = [
   // Backend
-  { name: 'Node.js', category: 'Backend', proficiency: 'Expert' },
-  { name: 'Express.js', category: 'Backend', proficiency: 'Advanced' },
-  { name: 'NestJS', category: 'Backend', proficiency: 'Advanced' },
-  { name: 'TypeScript', category: 'Backend', proficiency: 'Advanced' },
-  { name: 'JavaScript', category: 'Backend', proficiency: 'Advanced' },
-  { name: 'PostgreSQL', category: 'Backend', proficiency: 'Advanced' },
+  { name: 'Node.js', category: 'Backend' },
+  { name: 'Express.js', category: 'Backend'},
+  { name: 'NestJS', category: 'Backend'},
+  { name: 'TypeScript', category: 'Backend'},
+  { name: 'JavaScript', category: 'Backend'},
+  { name: 'PostgreSQL', category: 'Backend',  },
 
   // Frontend
-  { name: 'React.js', category: 'Frontend', proficiency: 'Beginner' },
-  { name: 'HTML', category: 'Frontend', proficiency: 'Advanced' },
-  { name: 'CSS', category: 'Frontend', proficiency: 'Advanced' },
+  { name: 'React.js', category: 'Frontend'},
+  { name: 'HTML', category: 'Frontend'},
+  { name: 'CSS', category: 'Frontend'},
 
   // Tools & Others
-  { name: 'Git', category: 'Tools', proficiency: 'Advanced' },
-  { name: 'REST APIs', category: 'Tools', proficiency: 'Advanced' },
-  { name: 'Database Design', category: 'Tools', proficiency: 'Advanced' },
-  { name: 'Authentication', category: 'Tools', proficiency: 'Advanced' },
-  { name: 'CRUD Operations', category: 'Tools', proficiency: 'Advanced' },
+  { name: 'Git', category: 'Tools'},
+  { name: 'REST APIs', category: 'Tools'},
+  { name: 'Database Design', category: 'Tools'},
+  { name: 'Authentication', category: 'Tools'},
+  { name: 'CRUD Operations', category: 'Tools' },
 ];
 
 export const projects: Project[] = [
