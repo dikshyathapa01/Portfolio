@@ -58,7 +58,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-screen w-full items-center overflow-hidden pt-16 pb-12 sm:pt-20 sm:pb-16"
+      className="relative flex min-h-screen w-full items-center overflow-hidden pt-14 pb-10 sm:pt-[4.5rem] sm:pb-14 lg:pt-20 lg:pb-16"
     >
       {/* Ambient background */}
       <div className="absolute inset-0 overflow-hidden">
@@ -90,7 +90,7 @@ export function Hero() {
         {/* Small rabbit that trails the cursor */}
         <motion.div
           aria-hidden
-          className="absolute left-0 top-0 hidden sm:block cursor-pointer"
+          className="absolute left-0 top-0 hidden lg:block cursor-pointer"
           animate={rabbitControls}
           onTap={handleRabbitTap}
           whileTap={{ scale: 1.06 }}
@@ -126,17 +126,17 @@ export function Hero() {
         animate="visible"
         className="site-container relative z-10 w-full"
       >
-        <div className="mx-auto grid w-full max-w-4xl grid-cols-1 items-center justify-items-center gap-8 sm:gap-10">
-          <motion.div variants={itemVariants} className="mx-auto w-full max-w-xl text-center">
-            <h1 className="text-4xl font-extrabold leading-[1.03] text-slate-900 sm:text-5xl md:text-6xl xl:text-7xl dark:text-stone-100">
+        <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-9 sm:gap-11 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+          <motion.div variants={itemVariants} className="mx-auto w-full max-w-xl text-center lg:mx-0 lg:max-w-none lg:text-left">
+            <h1 className="text-4xl font-extrabold leading-[1.03] text-slate-900 sm:text-5xl md:text-6xl xl:text-[4.4rem] dark:text-stone-100">
               Hi, I&apos;m
               <span className="bg-gradient-to-r from-stone-800 via-stone-600 to-zinc-500 bg-clip-text text-transparent"> {firstName}</span>
             </h1>
-            <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-slate-600 sm:mt-6 sm:text-lg md:text-xl dark:text-stone-200/85">
+            <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-slate-600 sm:mt-6 sm:text-lg md:text-xl lg:mx-0 dark:text-stone-200/85">
               {portfolio.shortBio}
             </p>
 
-            <motion.div variants={itemVariants} className="mt-6 sm:mt-9 flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4">
+            <motion.div variants={itemVariants} className="mt-6 flex flex-col flex-wrap justify-center gap-3 sm:mt-9 sm:flex-row sm:gap-4 lg:justify-start">
               <a href="#projects" className="w-full sm:w-auto">
                 <Button size="lg" variant="primary" className="w-full sm:w-auto">View Projects</Button>
               </a>
@@ -145,12 +145,12 @@ export function Hero() {
               </a>
             </motion.div>
 
-            <motion.div variants={itemVariants} className="mt-6 sm:mt-8 flex justify-center">
+            <motion.div variants={itemVariants} className="mt-6 flex justify-center sm:mt-8 lg:justify-start">
               <SocialLinks />
             </motion.div>
           </motion.div>
 
-          <motion.div variants={itemVariants} className="relative mx-auto w-full max-w-xs sm:max-w-sm md:max-w-md">
+          <motion.div variants={itemVariants} className="relative mx-auto w-full max-w-xs sm:max-w-sm md:max-w-md lg:mx-0 lg:justify-self-end">
             <div className="relative rounded-2xl border border-stone-200/75 bg-gradient-to-br from-white/96 to-stone-50/65 p-4 shadow-[0_24px_64px_rgba(25,20,17,0.14)] ring-1 ring-white/65 backdrop-blur-md dark:border-stone-600/45 dark:bg-gradient-to-br dark:from-stone-900/82 dark:to-stone-800/55 dark:ring-stone-200/8 sm:rounded-[2rem] sm:p-5 md:p-7">
               <div className="absolute -top-3 -right-3 rounded-xl bg-gradient-to-r from-stone-700 to-stone-600 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-white shadow-[0_12px_24px_rgba(87,83,78,0.36)] sm:-top-4 sm:-right-4 sm:rounded-2xl sm:px-4 sm:py-2">
                 Available
@@ -180,7 +180,7 @@ export function Hero() {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="flex justify-center gap-2 mt-12"
+          className="mt-10 hidden justify-center gap-2 sm:mt-12 lg:flex"
         >
           <ArrowDown className="text-slate-400 dark:text-stone-300/60" size={24} />
         </motion.div>

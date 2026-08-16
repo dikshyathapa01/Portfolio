@@ -48,7 +48,7 @@ export function Skills() {
         </motion.div>
 
         {/* Skills Categories */}
-        <div className="mx-auto grid w-full max-w-4xl grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 md:grid-cols-3 md:gap-8">
+        <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 lg:grid-cols-3 md:gap-8">
           {categories.map((category, categoryIndex) => (
             <motion.div
               key={category}
@@ -59,7 +59,7 @@ export function Skills() {
               whileHover={{ y: -6 }}
               className="w-full"
             >
-              <Card className="h-full text-center">
+              <Card className="h-full text-center lg:text-left">
                 <h3 className="mb-4 text-lg font-bold text-slate-900 sm:mb-6 sm:text-xl dark:text-slate-100">
                   {category}
                 </h3>
@@ -74,7 +74,7 @@ export function Skills() {
                       viewport={{ once: true }}
                       whileHover={{ x: 4 }}
                     >
-                      <div className="rounded-lg sm:rounded-xl border border-slate-200/80 bg-slate-50/80 px-3 py-2 text-center dark:border-slate-700/60 dark:bg-slate-800/60 sm:px-4 sm:py-2.5">
+                      <div className="rounded-lg sm:rounded-xl border border-slate-200/80 bg-slate-50/80 px-3 py-2 text-center lg:text-left dark:border-slate-700/60 dark:bg-slate-800/60 sm:px-4 sm:py-2.5">
                         <span className="block text-sm font-medium text-slate-900 sm:text-base dark:text-slate-100">
                           {skill.name}
                         </span>

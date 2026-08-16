@@ -38,7 +38,7 @@ export function SocialLinks() {
   ];
 
   return (
-    <div className="flex gap-2.5 sm:gap-4">
+    <div className="flex flex-wrap justify-center gap-2.5 sm:gap-4 lg:justify-start">
       {links.map((link) => (
         <SocialLink key={link.label} href={link.href} icon={link.icon} label={link.label} />
       ))}

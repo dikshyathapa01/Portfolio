@@ -37,7 +37,7 @@ export function Projects() {
           </p>
         </motion.div>
 
-        <div className="mx-auto grid w-full max-w-3xl grid-cols-1 gap-6 sm:gap-7 md:gap-8">
+        <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-6 sm:gap-7 md:grid-cols-2 md:gap-8">
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
@@ -48,7 +48,7 @@ export function Projects() {
               whileHover={{ y: -6 }}
               className="w-full"
             >
-              <Card className="border-stone-200/80 bg-white/85 p-6 text-center sm:p-7 md:p-8 dark:border-stone-600/45 dark:bg-stone-900/50" hover={false}>
+              <Card className="border-stone-200/80 bg-white/85 p-6 text-center sm:p-7 lg:text-left dark:border-stone-600/45 dark:bg-stone-900/50" hover={false}>
                 <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-stone-500 dark:text-stone-300/75">
                   Project {String(index + 1).padStart(2, '0')}
                 </p>
@@ -62,7 +62,7 @@ export function Projects() {
                   {project.description}
                 </p>
 
-                <div className="mt-5 flex flex-wrap justify-center gap-2">
+                <div className="mt-5 flex flex-wrap justify-center gap-2 lg:justify-start">
                   {project.technologies.map((tech) => (
                     <span
                       key={tech}
@@ -74,7 +74,7 @@ export function Projects() {
                 </div>
 
                 {project.githubUrl && (
-                  <div className="mt-5">
+                  <div className="mt-5 lg:text-left">
                     <a
                       href={project.githubUrl}
                       target="_blank"

@@ -33,7 +33,7 @@ export function About() {
         </motion.div>
 
         {/* Bio */}
-        <div className="mx-auto grid w-full max-w-3xl grid-cols-1 gap-6 sm:gap-7 md:gap-8">
+        <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-6 sm:gap-7 md:gap-8 lg:grid-cols-[1.25fr_0.95fr] lg:items-stretch">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -42,7 +42,7 @@ export function About() {
             whileHover={{ y: -4 }}
             className="w-full space-y-4 rounded-2xl border border-stone-200/70 bg-white/85 p-6 sm:space-y-6 sm:rounded-3xl sm:p-8 dark:border-stone-500/30 dark:bg-stone-900/45"
           >
-            <div className="text-center">
+            <div className="text-center lg:text-left">
               <h3 className="mb-4 text-2xl font-semibold text-slate-900 sm:mb-6 sm:text-3xl dark:text-stone-100">
                 Backend Developer
               </h3>
@@ -54,8 +54,31 @@ export function About() {
                 scale. Currently pursuing my BSc in Computer Science while working on real-world
                 projects.
               </p>
+            </div>
+          </motion.div>
 
-              <div className="mt-6 flex flex-wrap justify-center gap-2.5 sm:mt-7">
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            whileHover={{ y: -4 }}
+            className="w-full rounded-2xl border border-stone-200/70 bg-white/85 p-6 sm:rounded-3xl sm:p-8 dark:border-stone-500/30 dark:bg-stone-900/45"
+          >
+            <h3 className="text-center text-xl font-semibold text-slate-900 sm:text-2xl lg:text-left dark:text-stone-100">
+              Core Focus
+            </h3>
+
+            <p className="mt-4 text-center text-sm leading-relaxed text-slate-700 sm:text-base lg:text-left dark:text-stone-200/85">
+              Building reliable server-side systems with strong API design, clean architecture, and maintainable code.
+            </p>
+
+            <div className="mt-6 rounded-xl border border-stone-200/75 bg-stone-50/75 p-4 dark:border-stone-600/40 dark:bg-stone-800/45">
+              <p className="text-center text-xs font-semibold uppercase tracking-[0.16em] text-stone-500 lg:text-left dark:text-stone-300/75">
+                Interests
+              </p>
+
+              <div className="mt-3 flex flex-wrap justify-center gap-2.5 lg:justify-start">
                 {portfolio.interests.map((interest) => (
                   <span
                     key={interest}
